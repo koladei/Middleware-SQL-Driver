@@ -1,0 +1,14 @@
+middleware_sql_driver.admin_settings:
+  path: '/admin/config/middleware_sql_driver'
+  defaults:
+    _form: '\Drupal\middleware_sql_driver\Form\ConfigurationForm'
+    _title: 'Middleware Configuration: SQL Driver'
+  requirements:
+    _permission: 'administer site configuration'
+middleware_sql_driver.object_settings:
+  path: '/admin/config/middleware_sql_driver/objects'
+  defaults:
+    _form: '\Drupal\middleware_sql_driver\Form\ObjectListForm'
+    _title: 'Middleware Configuration: SQL Driver'
+  requirements:
+    _permission: 'administer site configuration'

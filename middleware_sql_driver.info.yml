@@ -1,0 +1,6 @@
+name: Middleware SQL Driver
+description: Implements SQL features necessary for the Middleware to integrate with an SQL server.
+package: Middleware
+type: module
+version: 1.0
+core: 8.x
