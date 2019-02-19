@@ -1,2 +1,2 @@
-# D8HWexample
-D8 Hello World Module
+# Middleware-SQL-Driver
+Implements a communication driver for SQL based data storage
