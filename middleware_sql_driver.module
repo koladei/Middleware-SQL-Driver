@@ -48,7 +48,7 @@ function middleware_sql_driver_middleware_driver_list_alter(&$driver_list){
     $driver_list['sql_mysql'] = 'My SQL';
 }
 
-function middleware_sql_driver_middleware_driver_settings_template_alter($name, &$driver_list, FormStateInterface $form_state = NULL){
+function middleware_sql_driver_middleware_driver_settings_template_alter($name, &$driver_list, $settings = []){
     if(in_array($name, ['sql_mssql', 'sql_mysql'])){
         $driver_list[$name] = [
             'name' => 'Microsoft SQL Server',
@@ -56,31 +56,33 @@ function middleware_sql_driver_middleware_driver_settings_template_alter($name, 
                 'connection_string' =>  [
                     '#type' => 'textfield',
                     '#title' => ('Connection string'),
-                    '#default_value' => $form_state->getValue(['settings', 'connection_string'])
+                    '#default_value' => isset($settings['connection_string'])?($settings['connection_string']):''
                 ],
                 
                 'username' =>  [
                     '#type' => 'textfield',
                     '#title' => ('Username'),
-                    '#default_value' => $form_state->getValue(['settings', 'username'])
+                    '#default_value' => isset($settings['username'])?($settings['username']):''
                 ],
                 
                 'password' =>  [
                     '#type' => 'password',
                     '#title' => ('Password'),
-                    '#default_value' => $form_state->getValue(['settings', 'password']),
+                    '#default_value' => isset($settings['password'])?($settings['password']):'',
                     '#attributes' => [
-                        'value' => $form_state->getValue(['settings', 'password'])
+                        'value' => isset($settings['password'])?($settings['password']):''
                     ]
                 ],
             ]
-        ];
+        ];    
     }
 }
 
-function middleware_sql_driver_middleware_driver_settings_template_validate_alter($name, FormStateInterface $form_state = NULL){
+function middleware_sql_driver_middleware_driver_settings_template_validate_alter($name, $parent_hierachy, FormStateInterface $form_state = NULL){
     // if(in_array($name, ['sql_mssql', 'sql_mysql'])){
-        drupal_set_message("{$name} - {$form_state->getValue(['settings', 'username'])}");
+        // $username = implode('][', array_merge($parent_hierachy, ['username']));
+        // drupal_set_message(print_r($parent_hierachy, true));
+        // $form_state->setErrorByName($username, "{$name} - {$form_state->getValue(['settings', 'username'])}");
     // }
 }
 
@@ -96,12 +98,6 @@ function middleware_sql_driver__get_cached_entity_definitions($targetDriver)
 
 function middleware_sql_driver__get_entity_definitions_local(){
     return middleware_sql_driver__get_entity_definitions(...func_get_args())['sql'];
-}
-
-
-function middleware_sql_driver__funny_function()
-{
-    echo 'ABC';
 }
 
 /**
